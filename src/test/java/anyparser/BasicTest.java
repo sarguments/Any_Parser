@@ -2,6 +2,7 @@ package anyparser;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +16,8 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InitTest {
-    private static final Logger log = LoggerFactory.getLogger(InitTest.class);
+public class BasicTest {
+    private static final Logger log = LoggerFactory.getLogger(BasicTest.class);
     private ObjectMapper objectMapper;
 
     @Before
@@ -56,6 +57,14 @@ public class InitTest {
         assertThat(car.getColor()).isEqualTo("yellow");
         assertThat(car.getType()).isEqualTo("renault");
         log.debug("car : {}", car);
+    }
+
+    @Test
+    public void jsonToJsonNode() throws IOException {
+        String json = "{ \"color\" : \"Black\", \"type\" : \"FIAT\" }";
+        JsonNode jsonNode = objectMapper.readTree(json);
+        String color = jsonNode.get("color").asText();
+        assertThat(color).isEqualTo("Black");
     }
 
     @Test
