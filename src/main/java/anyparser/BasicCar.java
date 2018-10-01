@@ -9,14 +9,12 @@ public class BasicCar {
     public BasicCar() {
     }
 
-    public BasicCar(String color, String type) {
+    BasicCar(String color, String type) {
         this.color = color;
         this.type = type;
     }
 
-    // standard getters setters
-
-    public String getColor() {
+    String getColor() {
         return color;
     }
 
@@ -24,7 +22,7 @@ public class BasicCar {
         this.color = color;
     }
 
-    public String getType() {
+    String getType() {
         return type;
     }
 
