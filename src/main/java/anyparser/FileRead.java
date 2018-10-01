@@ -14,11 +14,12 @@ public class FileRead {
     public static String read(String fileName) throws IOException {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         File file = new File(Objects.requireNonNull(classLoader.getResource(fileName)).getFile());
+
         byte[] bytes = null;
         try {
             bytes = Files.readAllBytes(file.toPath());
         } catch (IOException e) {
-            log.debug("파일 읽기 에러 : {}", e.getMessage());
+            log.info("파일 읽기 에러 : {}", e.getMessage());
             throw e;
         }
 

@@ -9,12 +9,12 @@ public class BasicCar {
     public BasicCar() {
     }
 
-    BasicCar(String color, String type) {
+    public BasicCar(String color, String type) {
         this.color = color;
         this.type = type;
     }
 
-    String getColor() {
+    public String getColor() {
         return color;
     }
 
@@ -22,7 +22,7 @@ public class BasicCar {
         this.color = color;
     }
 
-    String getType() {
+    public String getType() {
         return type;
     }
 
