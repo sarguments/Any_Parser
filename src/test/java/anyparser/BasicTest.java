@@ -27,14 +27,14 @@ public class BasicTest {
 
     @Test
     public void javaToJsonFile() throws IOException {
-        Car car = new Car("yellow", "renault");
-        objectMapper.writeValue(new File("target/car.json"), car);
+        BasicCar basicCar = new BasicCar("yellow", "renault");
+        objectMapper.writeValue(new File("target/basicCar.json"), basicCar);
     }
 
     @Test
     public void javaToJsonString() throws JsonProcessingException {
-        Car car = new Car("yellow", "renault");
-        String json = objectMapper.writeValueAsString(car);
+        BasicCar basicCar = new BasicCar("yellow", "renault");
+        String json = objectMapper.writeValueAsString(basicCar);
 
         assertThat(json).isEqualTo("{\"color\":\"yellow\",\"type\":\"renault\"}");
         log.debug("json : {}", json);
@@ -43,20 +43,20 @@ public class BasicTest {
     @Test
     public void jsonStringToJava() throws IOException {
         String json = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
-        Car car = objectMapper.readValue(json, Car.class);
+        BasicCar basicCar = objectMapper.readValue(json, BasicCar.class);
 
-        assertThat(car.getColor()).isEqualTo("Black");
-        assertThat(car.getType()).isEqualTo("BMW");
-        log.debug("car : {}", car);
+        assertThat(basicCar.getColor()).isEqualTo("Black");
+        assertThat(basicCar.getType()).isEqualTo("BMW");
+        log.debug("basicCar : {}", basicCar);
     }
 
     @Test
     public void jsonFileToJava() throws IOException {
-        Car car = objectMapper.readValue(new File("target/car.json"), Car.class);
+        BasicCar basicCar = objectMapper.readValue(new File("target/basicCar.json"), BasicCar.class);
 
-        assertThat(car.getColor()).isEqualTo("yellow");
-        assertThat(car.getType()).isEqualTo("renault");
-        log.debug("car : {}", car);
+        assertThat(basicCar.getColor()).isEqualTo("yellow");
+        assertThat(basicCar.getType()).isEqualTo("renault");
+        log.debug("basicCar : {}", basicCar);
     }
 
     @Test
@@ -71,9 +71,10 @@ public class BasicTest {
     public void jsonArrayToJavaList() throws IOException {
         String jsonCarArray =
                 "[{ \"color\" : \"Black\", \"type\" : \"BMW\" }, { \"color\" : \"Red\", \"type\" : \"FIAT\" }]";
-        List<Car> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>(){});
-        assertThat(listCar.get(0).getType()).isEqualTo("BMW");
-        log.debug("list : {}", listCar);
+        List<BasicCar> listBasicCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<BasicCar>>() {
+        });
+        assertThat(listBasicCar.get(0).getType()).isEqualTo("BMW");
+        log.debug("list : {}", listBasicCar);
     }
 
     @Test

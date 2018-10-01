@@ -9,17 +9,20 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
+
 public class AnyTest {
     private static final Logger log = LoggerFactory.getLogger(AnyTest.class);
 
     @Test
-    public void newName() throws IOException {
+    public void JsonToStringObjectMapDeserialize() throws IOException {
         final String json = "{\n" +
                 "\t\"k\": 1,\n" +
                 "\t\"j\": {\n" +
                 "\t\t\"l1\": true,\n" +
-                "\t\t\"l2\": false,\n" +
-                "\t\t\"l3\": true\n" +
+                "\t\t\"l2\": 3,\n" +
+                "\t\t\"l3\": false\n" +
                 "\t},\n" +
                 "\t\"m\": \"n\",\n" +
                 "\t\"o\": {\n" +
@@ -47,6 +50,7 @@ public class AnyTest {
                 "\t}\n" +
                 "}";
 
+        // JACKSON 2.9 JAVADOC http://fasterxml.github.io/jackson-databind/javadoc/2.9/
         ObjectMapper mapper = new ObjectMapper();
         MapType type = mapper.getTypeFactory().constructMapType(
                 Map.class, String.class, Object.class);
@@ -61,6 +65,13 @@ public class AnyTest {
 
         Map<String, Object> data = mapper.readValue(json, type);
         // public <T> T readValue(String content, JavaType valueType) 을 통해 Map<String, Object> 오브젝트로 역직렬화
+
+        assertThat(data.get("k")).isEqualTo(1);
+        assertThat(data).containsKeys("k", "j", "m", "o", "p");
+        assertThat(data).contains(entry("m", "n"));
+        assertThat(data.get("j")).extracting("l2").contains(3);
+        assertThat(data.get("j")).extracting("l1").contains(true);
+        assertThat(data.get("j")).extracting("l3").contains(false);
 
         log.debug("data : {}", data);
     }

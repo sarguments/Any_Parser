@@ -1,15 +1,15 @@
 package anyparser;
 
-public class Car {
+public class BasicCar {
 
     private String color;
     private String type;
 
     // 기본 생성자 필수
-    public Car() {
+    public BasicCar() {
     }
 
-    public Car(String color, String type) {
+    public BasicCar(String color, String type) {
         this.color = color;
         this.type = type;
     }
@@ -34,7 +34,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "BasicCar{" +
                 "color='" + color + '\'' +
                 ", type='" + type + '\'' +
                 '}';
